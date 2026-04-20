@@ -1,6 +1,6 @@
 package com.marcio.taskmanager.repository;
 
-import com.marcio.taskmanager.dto.Task;
+import com.marcio.taskmanager.model.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TaskRepository extends JpaRepository<Task, Long> {

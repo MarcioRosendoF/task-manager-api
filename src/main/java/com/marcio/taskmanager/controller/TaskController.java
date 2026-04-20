@@ -1,6 +1,7 @@
 package com.marcio.taskmanager.controller;
 
-import com.marcio.taskmanager.dto.Task;
+import com.marcio.taskmanager.dto.TaskRequestDTO;
+import com.marcio.taskmanager.dto.TaskResponseDTO;
 import com.marcio.taskmanager.service.TaskService;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,19 +19,19 @@ public class TaskController {
 
     // POST /tasks — recebe uma tarefa no corpo do pedido e salva
     @PostMapping
-    public Task create(@RequestBody Task task) {
-        return taskService.create(task);
+    public TaskResponseDTO create(@RequestBody TaskRequestDTO taskDTO) {
+        return taskService.create(taskDTO);
     }
 
     // GET /tasks — retorna todas as tarefas
     @GetMapping
-    public List<Task> list() {
+    public List<TaskResponseDTO> list() {
         return taskService.list();
     }
 
     // GET /tasks/1 — retorna a tarefa com aquele ID
     @GetMapping("/{id}")
-    public Task findById(@PathVariable Long id) {
+    public TaskResponseDTO findById(@PathVariable Long id) {
         return taskService.findById(id);
     }
 

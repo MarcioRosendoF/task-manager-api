@@ -1,10 +1,13 @@
 package com.marcio.taskmanager.service;
 
-import com.marcio.taskmanager.dto.Task;
+import com.marcio.taskmanager.dto.TaskRequestDTO;
+import com.marcio.taskmanager.dto.TaskResponseDTO;
+import com.marcio.taskmanager.model.Task;
 import com.marcio.taskmanager.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TaskService {
@@ -15,19 +18,31 @@ public class TaskService {
         this.repository = repository;
     }
 
-    public Task create(Task task) {
-        return repository.save(task);
+    public TaskResponseDTO create(TaskRequestDTO taskDTO) {
+        Task task = new Task();
+        task.setTitle(taskDTO.title());
+        task.setCompleted(taskDTO.completed());
+        
+        Task savedTask = repository.save(task);
+        return toResponseDTO(savedTask);
     }
 
-    public List<Task> list() {
-        return repository.findAll();
+    public List<TaskResponseDTO> list() {
+        return repository.findAll().stream()
+                .map(this::toResponseDTO)
+                .collect(Collectors.toList());
     }
 
-    public Task findById(Long id) {
-        return repository.findById(id).orElseThrow();
+    public TaskResponseDTO findById(Long id) {
+        Task task = repository.findById(id).orElseThrow();
+        return toResponseDTO(task);
     }
 
     public void delete(Long id) {
         repository.deleteById(id);
+    }
+
+    private TaskResponseDTO toResponseDTO(Task task) {
+        return new TaskResponseDTO(task.getId(), task.getTitle(), task.isCompleted());
     }
 }

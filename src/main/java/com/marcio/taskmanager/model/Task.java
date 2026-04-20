@@ -1,4 +1,4 @@
-package com.marcio.taskmanager.dto;
+package com.marcio.taskmanager.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -2,8 +2,10 @@ package com.marcio.taskmanager.service;
 
 import com.marcio.taskmanager.dto.TaskRequestDTO;
 import com.marcio.taskmanager.dto.TaskResponseDTO;
+import com.marcio.taskmanager.exception.ResourceNotFoundException;
 import com.marcio.taskmanager.model.Task;
 import com.marcio.taskmanager.repository.TaskRepository;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,12 +35,16 @@ public class TaskService {
                 .collect(Collectors.toList());
     }
 
-    public TaskResponseDTO findById(Long id) {
-        Task task = repository.findById(id).orElseThrow();
+    public TaskResponseDTO findById(@NonNull Long id) {
+        Task task = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Task not found with id: " + id));
         return toResponseDTO(task);
     }
 
-    public void delete(Long id) {
+    public void delete(@NonNull Long id) {
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException("Task not found with id: " + id);
+        }
         repository.deleteById(id);
     }
 

@@ -48,6 +48,17 @@ public class TaskService {
         repository.deleteById(id);
     }
 
+    public TaskResponseDTO update(@NonNull Long id, TaskRequestDTO taskDTO) {
+        Task task = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Task not found with id: " + id));
+        
+        task.setTitle(taskDTO.title());
+        task.setCompleted(taskDTO.completed());
+        
+        Task updatedTask = repository.save(task);
+        return toResponseDTO(updatedTask);
+    }
+
     private TaskResponseDTO toResponseDTO(Task task) {
         return new TaskResponseDTO(task.getId(), task.getTitle(), task.isCompleted());
     }

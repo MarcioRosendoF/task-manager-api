@@ -45,7 +45,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             HttpStatusCode status,
             @NonNull WebRequest request) {
 
-        HttpStatus statusEnum = HttpStatus.valueOf(status.value());
+        HttpStatus statusEnum = HttpStatus.resolve(status.value());
 
         String path;
 

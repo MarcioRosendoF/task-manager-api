@@ -3,6 +3,7 @@ package com.marcio.taskmanager.controller;
 import com.marcio.taskmanager.dto.TaskRequestDTO;
 import com.marcio.taskmanager.dto.TaskResponseDTO;
 import com.marcio.taskmanager.service.TaskService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class TaskController {
 
     // POST /tasks — recebe uma tarefa no corpo do pedido e salva
     @PostMapping
-    public ResponseEntity<TaskResponseDTO> create(@RequestBody TaskRequestDTO taskDTO) {
+    public ResponseEntity<TaskResponseDTO> create(@RequestBody @Valid TaskRequestDTO taskDTO) {
         TaskResponseDTO result = taskService.create(taskDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
@@ -48,7 +49,7 @@ public class TaskController {
 
     // PUT /tasks/1 — atualiza a tarefa com aquele ID
     @PutMapping("/{id}")
-    public ResponseEntity<TaskResponseDTO> update(@PathVariable Long id, @RequestBody TaskRequestDTO taskDTO) {
+    public ResponseEntity<TaskResponseDTO> update(@PathVariable Long id, @RequestBody @Valid TaskRequestDTO taskDTO) {
         TaskResponseDTO result = taskService.update(id, taskDTO);
         return ResponseEntity.ok(result);
     }

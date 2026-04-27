@@ -1,4 +1,13 @@
 package com.marcio.taskmanager.dto;
 
-public record TaskRequestDTO(String title, boolean completed) {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
+public record TaskRequestDTO(
+        @NotBlank(message = "O título não pode estar vazio")
+        @Size(min = 5, max = 100, message = "O título deve ter entre 5 e 100 caracteres")
+        String title,
+
+        boolean completed
+) {
 }

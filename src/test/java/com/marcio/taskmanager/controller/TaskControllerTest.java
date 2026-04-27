@@ -48,6 +48,19 @@ public class TaskControllerTest {
     }
 
     @Test
+    public void create_ShouldReturnBadRequest_WhenTitleIsInvalid() throws Exception {
+        TaskRequestDTO request = new TaskRequestDTO("Task", false); // Título com menos de 5 caracteres
+
+        mockMvc.perform(post("/tasks")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.error").value("Validation error"))
+                .andExpect(jsonPath("$.errors[0].field").value("title"))
+                .andExpect(jsonPath("$.errors[0].message").value("O título deve ter entre 5 e 100 caracteres"));
+    }
+
+    @Test
     public void findById_ShouldReturnNotFound_WhenIdDoesNotExist() throws Exception {
         Long id = 1L;
         when(taskService.findById(id)).thenThrow(new ResourceNotFoundException("Task not found with id: " + id));

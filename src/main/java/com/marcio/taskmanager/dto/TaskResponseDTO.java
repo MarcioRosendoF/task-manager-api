@@ -1,4 +1,4 @@
 package com.marcio.taskmanager.dto;
 
-public record TaskResponseDTO(long id, String title, boolean completed) {
+public record TaskResponseDTO(Long id, String title, boolean completed) {
 }

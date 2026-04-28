@@ -7,11 +7,13 @@ import com.marcio.taskmanager.model.Task;
 import com.marcio.taskmanager.repository.TaskRepository;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional(readOnly = true)
 public class TaskService {
 
     private final TaskRepository repository;
@@ -20,6 +22,7 @@ public class TaskService {
         this.repository = repository;
     }
 
+    @Transactional
     public TaskResponseDTO create(TaskRequestDTO taskDTO) {
         Task task = new Task();
         task.setTitle(taskDTO.title());
@@ -41,6 +44,7 @@ public class TaskService {
         return toResponseDTO(task);
     }
 
+    @Transactional
     public void delete(@NonNull Long id) {
         if (!repository.existsById(id)) {
             throw new ResourceNotFoundException("Task not found with id: " + id);
@@ -48,6 +52,7 @@ public class TaskService {
         repository.deleteById(id);
     }
 
+    @Transactional
     public TaskResponseDTO update(@NonNull Long id, TaskRequestDTO taskDTO) {
         Task task = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Task not found with id: " + id));

@@ -58,4 +58,90 @@
 		</plugins>
 	</build>
 
+	<profiles>
+		<profile>
+			<id>uml</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>de.elnarion.maven</groupId>
+						<artifactId>plantuml-generator-maven-plugin</artifactId>
+						<version>3.0.1</version>
+						<executions>
+							<execution>
+								<id>generate-uml-sources</id>
+								<phase>process-classes</phase>
+								<goals>
+									<goal>generate</goal>
+								</goals>
+								<configuration>
+									<scanPackages>
+										<scanPackage>com.marcio.taskmanager</scanPackage>
+									</scanPackages>
+									<outputDirectory>${project.build.directory}/plantuml</outputDirectory>
+									<outputFilename>diagram.puml</outputFilename>
+									<hideFields>false</hideFields>
+									<hideMethods>false</hideMethods>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>com.github.davidmoten</groupId>
+						<artifactId>plantuml-maven-plugin</artifactId>
+						<version>0.2.14</version>
+						<executions>
+							<execution>
+								<id>generate-uml-svg</id>
+								<phase>process-classes</phase>
+								<goals>
+									<goal>generate</goal>
+								</goals>
+								<configuration>
+									<sources>
+										<directory>${project.build.directory}/plantuml</directory>
+										<includes>
+											<include>diagram.puml</include>
+										</includes>
+									</sources>
+									<outputDirectory>${project.basedir}/docs/diagrams</outputDirectory>
+									<formats>
+										<format>svg</format>
+									</formats>
+									<configs>
+										<config>skinparam roundcorner 8</config>
+										<config>skinparam shadowing false</config>
+										<config>skinparam class {</config>
+										<config>    BackgroundColor #FFFFFF</config>
+										<config>    BorderColor #E2E8F0</config>
+										<config>    HeaderBackgroundColor #F8FAFC</config>
+										<config>    HeaderFontColor #0F172A</config>
+										<config>    HeaderFontName "Inter"</config>
+										<config>    HeaderFontSize 14</config>
+										<config>    FontColor #334155</config>
+										<config>    FontName "Inter"</config>
+										<config>    FontSize 12</config>
+										<config>    AttributeFontColor #475569</config>
+										<config>    AttributeFontName "JetBrains Mono"</config>
+										<config>    AttributeFontSize 10</config>
+										<config>}</config>
+										<config>skinparam stereotype {</config>
+										<config>    FontColor #64748B</config>
+										<config>    FontName "Inter"</config>
+										<config>}</config>
+										<config>skinparam arrow {</config>
+										<config>    Color #94A3B8</config>
+										<config>    Thickness 1.2</config>
+										<config>}</config>
+									</configs>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
 </project>
+

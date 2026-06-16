@@ -45,6 +45,12 @@ src/main/java/com/marcio/taskmanager/
 └── exception/    # Handlers de erro global
 ```
 
+### Modelagem de Classes
+
+O diagrama de classes abaixo ilustra a arquitetura interna do sistema e a relação entre as camadas. Este diagrama é gerado automaticamente a partir do código-fonte compilado.
+
+![Diagrama de Classes](docs/diagrams/diagram.svg)
+
 ### Endpoints
 
 - `GET /tasks` — Lista todas as tarefas
@@ -112,6 +118,12 @@ The application is a task manager with basic CRUD operations, input validation, 
 - Input validation
 - Global exception handling
 - Explicit entity mapping
+
+### Class Diagram
+
+The class diagram below illustrates the internal architecture of the system and the relationships between layers. It is automatically generated from the compiled source code.
+
+![Class Diagram](docs/diagrams/diagram.svg)
 
 ### Endpoints
 

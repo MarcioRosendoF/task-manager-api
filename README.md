@@ -83,6 +83,10 @@ O diagrama de classes abaixo ilustra a arquitetura interna do sistema e a relaç
 4. **Acesse a Documentação:**
    [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 
+### Interface Web
+
+Frontend em React consumindo esta API: [Task Manager Frontend](https://github.com/MarcioRosendoF/task-manager-frontend)
+
 ### Próximos Passos
 
 Para futuras iterações e novos projetos, o foco será em:
@@ -156,6 +160,10 @@ The class diagram below illustrates the internal architecture of the system and 
    ```
 4. **Access Documentation:**
    [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
+
+### Web Frontend
+
+React frontend consuming this API: [Task Manager Frontend](https://github.com/MarcioRosendoF/task-manager-frontend)
 
 ### Future Steps
 
